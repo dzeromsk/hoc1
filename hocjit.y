@@ -28,13 +28,14 @@ void eval();
 
 list:	  /* empty */
 	| list '\n'
-	| list expr '\n'	{ printbc(); eval(); }
+	| list expr '\n'	{ /* printbc(); */ eval(); }
 	;
 expr:	  NUMBER	{ emitvn(KNUM, $1); }
 	| expr '+' expr { emitvv(ADDVV); }
 	| expr '-' expr { emitvv(SUBVV); }
 	| expr '*' expr { emitvv(MULVV); }
 	| expr '/' expr { emitvv(DIVVV); }
+	| '(' expr ')'
 	;
 
 %%
@@ -234,7 +235,7 @@ void emitvn(uint32_t op, int n) {
 
 // B | C | A | OP
 void emitvv(uint32_t op) {
-	bc.ops[bc.n++] = (--slot << 24) | (--slot << 16) | (slot++ << 8) | op;
+	bc.ops[bc.n++] = (slot - 2 << 24) | (slot - 1 << 16) | (slot++ << 8) | op;
 }
 
 void printbc() {
