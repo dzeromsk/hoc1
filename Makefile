@@ -1,8 +1,10 @@
 CFLAGS += $(shell pkg-config --cflags luajit)
 LDLIBS += $(shell pkg-config --libs luajit)
 
-test: hocjit
-	./hocjit
-hocjit: hocjit.o
+test: hoc1
+	./hoc1
+
+hocjit: hoc1.o
+
 clean:
-	rm -f *.o hocjit
+	rm -f *.o hoc1
