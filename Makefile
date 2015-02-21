@@ -4,7 +4,7 @@ LDLIBS += $(shell pkg-config --libs luajit)
 test: hoc1
 	./hoc1
 
-hocjit: hoc1.o
+hoc1: hoc1.o
 
 clean:
 	rm -f *.o hoc1
